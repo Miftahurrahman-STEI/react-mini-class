@@ -8,9 +8,7 @@ const Header = () => {
                 <img src={Logo} alt="brand" />
             </>
             <div className="flex justify-center items-center text-white gap-4 font-medium">
-                <a href="#" className="hover:text-gray-400">Home</a>
-                <a href="#" className="hover:text-gray-400">About</a>
-                <a href="#" className="hover:text-gray-400">Contact</a>
+                <h1 className="font-semibold font-mono text-xl">Logic Games 🧠</h1>
             </div>
         </>
     </div>

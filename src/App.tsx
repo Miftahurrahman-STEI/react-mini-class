@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -13,25 +13,56 @@ import Footer from "./components/Footer";
 // }
 
 function App() {
-  const myName = "miftah";
-  const [update, setUpdate] = useState<number>(1);
-  const [numberOfClick, setNumberOfClick] = useState<number>(0);
+  const myName = useMemo(() => {
+    function getMyName() {
+      return "Miftah"
+    }
+
+    return getMyName();
+  }, []);
+  // let [dogImage, setDogImage] = useState(null);
+
+  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
+  const updateCount = useRef<number>(0);
+  // const [update, setUpdate] = useState<number>(1);
+  // const [numberOfClick, setNumberOfClick] = useState<number>(update + 1);
   // const [dataUser, setDataUser] = useState<IUserData | string>();
 
-  console.log('render : ', {update, numberOfClick});
+  // console.log({paragraphRef});
+  console.log({updateCount});
 
-  useEffect(() => {
-    console.log("ini useEffect render");
-    setNumberOfClick(update + 1);
-  }, [update]);
+  // console.log('render : ', {update, numberOfClick});
+
+  // useEffect(() => {
+  //   console.log("ini useEffect render");
+  //   setNumberOfClick(update + 1);
+  // }, [update]);
+
+  // Call API using useEffect
+  // useEffect(() => {
+  //   fetch('https://dog.ceo/api/breeds/image/random')
+  //   .then(response => response.json())
+  //   .then(data => setDogImage(data.message))
+  // }, []);
 
   return (
     <>
       <Header/>
       <div className="min-h-screen">
-        <h1 className="text-2xl">Hello {myName}</h1>
-        update variable : {update}
-        <p>number of click {numberOfClick}</p>
+        {/* {dogImage && <img className="w-28" src={dogImage}></img>} */}
+        
+        <h1
+          onClick={() => {
+            alert("Update count " + updateCount.current);
+          }}
+          className="text-2xl"
+          >
+            Hello {myName}
+          </h1>
+
+        {/* update variable : {update} */}
+        <p ref={paragraphRef}>number of click</p>
+        <p>number of click : {updateCount.current}</p>
 
         {/* <Card metadata={{
             title:<h2 className="text-2xl font-bold">Card pertama</h2>,
@@ -45,9 +76,16 @@ function App() {
         
         <button 
           onClick={() => {
-            const newUpdate = update + 1;
-            setUpdate(newUpdate);
-            console.log('click', {newUpdate})
+            // const newUpdate = update + 1;
+            // setUpdate(newUpdate);
+
+            updateCount.current += 1;
+
+            // if (paragraphRef.current) {
+            //   paragraphRef.current.innerHTML = "ini adalah test";
+            // }
+              
+            // console.log('click', {newUpdate})
           }}
             >
               Click
